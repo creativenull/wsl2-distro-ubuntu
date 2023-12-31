@@ -60,7 +60,7 @@ unminimize
 Install core tools for the dev environment.
 
 ```sh
-apt install nano vim curl wget unzip zip git man-db locales locate build-essential autoconf sudo
+apt install -y nano vim curl wget unzip zip git man-db locales locate build-essential autoconf sudo
 ```
 
 Set the time and locale to your region, selecting `en_US` for mine. This is needed by `asdf` node plugin to setup up nodejs.
@@ -107,11 +107,11 @@ Perform a quick check with `whoami` and if it's the user you created then it was
 Install the essential editor tools before installing neovim.
 
 ```sh
-sudo apt install fzf ripgrep
+sudo apt install -y fzf ripgrep
 ```
 
 Install packages for neovim build.
 
 ```sh
-sudo apt-get install ninja-build gettext cmake unzip curl
+sudo apt-get install -y ninja-build gettext cmake unzip curl
 ```

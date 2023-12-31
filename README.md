@@ -63,7 +63,7 @@ Install core tools for the dev environment.
 apt install -y nano vim curl wget unzip zip git man-db locales locate build-essential autoconf sudo
 ```
 
-Set the time and locale to your region, selecting `en_US` for mine. This is needed by `asdf` node plugin to setup up nodejs.
+Set the locale to your region, selecting `en_US` for mine. This is needed by `asdf` node plugin to setup up nodejs.
 
 ```sh
 dpkg-reconfigure locales

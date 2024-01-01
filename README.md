@@ -216,4 +216,4 @@ curl -fsSL https://deno.land/x/install/install.sh | sh
 
 Add the export instructions to `~/.zprofile`.
 
-### Mysql
+### MYSQL

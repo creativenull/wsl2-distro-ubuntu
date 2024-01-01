@@ -159,6 +159,10 @@ sudo systemctl start mysql
 
 Set a user and password give it all grants for local development. Ref [https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-22-04](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-22-04)
 
+```sh
+sudo mysql
+```
+
 ```sql
 CREATE USER 'creativenull'@'localhost' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON *.* TO 'creativenull'@'localhost' WITH GRANT OPTION;

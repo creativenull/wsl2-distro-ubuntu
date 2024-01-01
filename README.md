@@ -135,6 +135,17 @@ git clone https://github.com/jessarcher/zsh-artisan.git ~/.oh-my-zsh/custom/plug
 
 Re-open terminal to see the changes.
 
+### Core
+
+Install `lsd` to replace `ls`.
+
+```sh
+cd ~
+wget https://github.com/lsd-rs/lsd/releases/download/v1.0.0/lsd_1.0.0_amd64.deb
+sudo dpkg -i lsd_1.0.0_amd64.deb
+rm lsd_1.0.0_amd64.deb
+```
+
 ### Editor
 
 Install the essential editor tools before installing neovim.

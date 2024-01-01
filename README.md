@@ -69,10 +69,10 @@ Setup python.
 update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 ```
 
-Set the locale to your region, selecting `en_US` for mine. This is needed by `asdf` node plugin to setup up nodejs.
+Set the locale. This is needed by `asdf` node plugin to setup up nodejs.
 
 ```sh
-dpkg-reconfigure locales
+echo 'LANG=en_US.UTF-8' > /etc/default/locale
 ```
 
 ## 4. WSL Settings
@@ -217,3 +217,18 @@ curl -fsSL https://deno.land/x/install/install.sh | sh
 Add the export instructions to `~/.zprofile`.
 
 ### MYSQL
+
+```sh
+sudo apt install -y mysql-server
+sudo systemctl enable mysql
+sudo systemctl start mysql
+```
+
+Set a user and password give it all grants for local development. Ref [https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-22-04](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-22-04)
+
+```sql
+CREATE USER 'creativenull'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON *.* TO 'creativenull'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+exit;
+```

@@ -97,7 +97,7 @@ enabled = false
 appendWindowsPath = false
 ```
 
-Now, logout and terminate the container and try to enter it.
+Now, logout and terminate the container and try to enter it (this is in powershell/windows terminal).
 
 ```
 wsl --terminate Ubuntu

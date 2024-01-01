@@ -149,6 +149,12 @@ sudo dpkg -i lsd_1.0.0_amd64.deb
 rm lsd_1.0.0_amd64.deb
 ```
 
+Generate ssh key for Github, etc. Copy the `.pub` contents when create a new ssh key in Github settings.
+
+```sh
+ssh-keygen -t ed25519 -C "creativenull@outlook.com"
+```
+
 ### MYSQL
 
 ```sh

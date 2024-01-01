@@ -69,10 +69,10 @@ Setup python.
 update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 ```
 
-Set the locale. This is needed by `asdf` node plugin to setup up nodejs.
+Set the locale, selecting `en_US`. This is needed by `asdf` node plugin to setup up nodejs.
 
 ```sh
-echo 'LANG=en_US.UTF-8' > /etc/default/locale
+dpkg-reconfigure locales
 ```
 
 ## 4. WSL Settings

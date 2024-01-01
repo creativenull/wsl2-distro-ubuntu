@@ -149,6 +149,23 @@ sudo dpkg -i lsd_1.0.0_amd64.deb
 rm lsd_1.0.0_amd64.deb
 ```
 
+### MYSQL
+
+```sh
+sudo apt install -y mysql-server
+sudo systemctl enable mysql
+sudo systemctl start mysql
+```
+
+Set a user and password give it all grants for local development. Ref [https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-22-04](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-22-04)
+
+```sql
+CREATE USER 'creativenull'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON *.* TO 'creativenull'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+exit;
+```
+
 ### Editor
 
 Install the essential editor tools before installing neovim.
@@ -219,19 +236,3 @@ curl -fsSL https://deno.land/x/install/install.sh | sh
 
 Add the export instructions to `~/.zprofile`.
 
-### MYSQL
-
-```sh
-sudo apt install -y mysql-server
-sudo systemctl enable mysql
-sudo systemctl start mysql
-```
-
-Set a user and password give it all grants for local development. Ref [https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-22-04](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-22-04)
-
-```sql
-CREATE USER 'creativenull'@'localhost' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON *.* TO 'creativenull'@'localhost' WITH GRANT OPTION;
-FLUSH PRIVILEGES;
-exit;
-```

@@ -60,7 +60,7 @@ unminimize
 Install core tools for the dev environment.
 
 ```sh
-apt install -y nano vim curl wget unzip zip git man-db locales locate build-essential autoconf sudo python3 python3-pip
+apt install -y nano vim curl wget unzip zip git man-db locales locate build-essential autoconf sudo systemd systemd-sysv python3 python3-pip
 ```
 
 Setup python.

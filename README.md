@@ -176,41 +176,6 @@ FLUSH PRIVILEGES;
 exit;
 ```
 
-### Editor
-
-Install the essential editor tools before installing neovim.
-
-```sh
-sudo apt install -y fzf ripgrep
-```
-
-Install packages for neovim build. Ref [https://github.com/neovim/neovim/blob/master/BUILD.md](https://github.com/neovim/neovim/blob/master/BUILD.md)
-
-```sh
-sudo apt-get install -y ninja-build gettext cmake unzip curl
-```
-
-Clone neovim into `~/.builds`. Specify the nvim version to checkout.
-
-```sh
-git clone https://github.com/neovim/neovim.git ~/.builds/neovim
-cd ~/.builds/neovim
-git checkout v0.9.5
-```
-
-Build the binary.
-
-```sh
-make CMAKE_BUILD_TYPE=Release
-sudo make install
-```
-
-Finally, add my config.
-
-```sh
-ln -s ~/dotfiles/config/nvim ~/.config/nvim
-```
-
 ### Git
 
 ```sh
@@ -246,3 +211,37 @@ curl -fsSL https://deno.land/x/install/install.sh | sh
 
 Add the export instructions to `~/.zprofile`.
 
+### Editor
+
+Install the essential editor tools before installing neovim.
+
+```sh
+sudo apt install -y fzf ripgrep
+```
+
+Install packages for neovim build. Ref [https://github.com/neovim/neovim/blob/master/BUILD.md](https://github.com/neovim/neovim/blob/master/BUILD.md)
+
+```sh
+sudo apt-get install -y ninja-build gettext cmake unzip curl
+```
+
+Clone neovim into `~/.builds`. Specify the nvim version to checkout.
+
+```sh
+git clone https://github.com/neovim/neovim.git ~/.builds/neovim
+cd ~/.builds/neovim
+git checkout v0.9.5
+```
+
+Build the binary.
+
+```sh
+make CMAKE_BUILD_TYPE=Release
+sudo make install
+```
+
+Finally, add my config.
+
+```sh
+ln -s ~/dotfiles/config/nvim ~/.config/nvim
+```

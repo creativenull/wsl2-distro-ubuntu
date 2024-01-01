@@ -164,6 +164,12 @@ make CMAKE_BUILD_TYPE=Release
 sudo make install
 ```
 
+Finally, add my config.
+
+```sh
+ln -s ~/dotfiles/config/nvim ~/.config/nvim
+```
+
 ### Git
 
 ```sh

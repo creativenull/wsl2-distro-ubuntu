@@ -95,6 +95,9 @@ default = creativenull
 [interop]
 enabled = false
 appendWindowsPath = false
+
+[boot]
+systemd = true
 ```
 
 Now, logout and terminate the container and try to enter it (this is in powershell/windows terminal).

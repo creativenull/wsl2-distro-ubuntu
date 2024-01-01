@@ -108,7 +108,34 @@ Perform a quick check with `whoami` and if it's the user you created then it was
 
 ## 4. Dev Setup (WIP)
 
-### Editor tools
+> [!IMPORTANT]
+> Requires [dotfiles repo](https://github.com/creativenull/dotfiles.git)
+
+```sh
+git clone https://github.com/creativenull/dotfiles.git ~/dotfiles
+```
+
+### Shell
+
+Using zsh and tmux.
+
+```sh
+sudo apt install -y zsh tmux
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+rm ~/.zshrc
+ln -s ~/dotfiles/zshrc ~/.zshrc
+ln -s ~/dotfiles/tmux.conf ~/.tmux.conf
+```
+
+Install optional artisan plugin for zsh.
+
+```sh
+git clone https://github.com/jessarcher/zsh-artisan.git ~/.oh-my-zsh/custom/plugins/artisan
+```
+
+Re-open terminal to see the changes.
+
+### Editor
 
 Install the essential editor tools before installing neovim.
 
@@ -136,3 +163,38 @@ Build the binary.
 make CMAKE_BUILD_TYPE=Release
 sudo make install
 ```
+
+### Git
+
+```sh
+ln -s ~/dotfiles/gitconfig ~/.gitconfig
+```
+
+### asdf
+
+Install asdf and plugins.
+
+Follow the [zsh & git section](https://asdf-vm.com/guide/getting-started.html) to setup asdf for zsh. Add this to `~/.zprofile` and NOT `~/.zshrc`.
+
+```sh
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.13.1
+
+# node
+asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+asdf install nodejs 20.10.0
+
+# php
+asdf plugin add php https://github.com/asdf-community/asdf-php.git
+sudo apt install -y autoconf bison build-essential curl gettext git libgd-dev libcurl4-openssl-dev libedit-dev libicu-dev libjpeg-dev libmysqlclient-dev libonig-dev libpng-dev libpq-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev libzip-dev openssl pkg-config re2c zlib1g-dev
+asdf install php 8.2.14
+```
+
+### Deno
+
+```sh
+curl -fsSL https://deno.land/x/install/install.sh | sh
+```
+
+Add the export instructions to `~/.zprofile`.
+
+### Mysql

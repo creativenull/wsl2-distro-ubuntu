@@ -1,12 +1,12 @@
-# Custom Ubuntu Distro for WSL2
+# Custom Ubuntu Distro for WSL
 
-This is a quick repo for me to build out my dev environment in WSL2. Planning to create scripts based on the instructions in here.
+This is a quick repo for me to build out my dev environment in WSL. Planning to create scripts based on the instructions in here.
 
 Adapted from [https://learn.microsoft.com/en-us/windows/wsl/use-custom-distro](https://learn.microsoft.com/en-us/windows/wsl/use-custom-distro)
 
 ## Requirements
 
-- Docker for Windows
+- Docker for Windows - [https://docker.com/download](https://docker.com/download)
 - PowerShell Core - [https://github.com/PowerShell/PowerShell](https://github.com/PowerShell/PowerShell)
 - Windows terminal - [https://github.com/microsoft/terminal](https://github.com/microsoft/terminal)
 
@@ -30,34 +30,35 @@ Export to a tar file.
 docker export [id] > C:\path\to\ubuntu.tar
 ```
 
-## 2. Import to WSL2
+Where `[id]` is the container ID.
+
+## 2. Import to WSL
 
 ```pwsh
-wsl --import Ubuntu C:\path\to\install\dir C:\path\to\ubuntu.tar
+wsl --import DevMachine C:\path\to\install\dir C:\path\to\ubuntu.tar
 ```
 
 Re-open windows terminal and check if you can enter the container.
 
 ```pwsh
-wsl -d Ubuntu
+wsl -d DevMachine
 ```
 
 If you enter into the root shell then it's successfully installed.
 
 ## 3. Container setup
 
-Setup the container for the user, while inside the container.
-
 > [!IMPORTANT]
-> We are inside the container now and not in powershell
+> We are now inside the ubuntu container. So powershell commands will not work in the container.
 
-Uncompress the container since it was a docker container before, we want the full ubuntu experience now.
+Setup the container for the user, while inside the container. Uncompress the container since it was
+a docker container before, we want the full ubuntu experience now.
 
 ```sh
 unminimize
 ```
 
-Install core tools for the dev environment.
+Install core tools for the devlopment environment.
 
 ```sh
 apt install -y nano vim curl wget unzip zip git man-db locales locate build-essential autoconf sudo systemd systemd-sysv iproute2 python3 python3-pip
@@ -69,7 +70,7 @@ Setup python.
 update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 ```
 
-Set the locale, selecting `en_US`. This is needed by `asdf` node plugin to setup up nodejs.
+Set the locale, selecting `en_US`. This is needed by `asdf` to setup up nodejs and php.
 
 ```sh
 dpkg-reconfigure locales
@@ -77,20 +78,20 @@ dpkg-reconfigure locales
 
 ## 4. WSL Settings
 
-Need to setup a user and disable interop with the windows host. This can be done via `/etc/wsl.conf` file in the container.
-
-Create a user first and add to the sudo group.
+- Create a user and add to the sudo group.
+- Disable interop with the windows host, which will be done via `/etc/wsl.conf`.
 
 ```sh
 adduser creativenull
 usermod -aG sudo creativenull
 ```
 
-Edit/create the `/etc/wsl.conf` file and add the following contents. Ref [https://learn.microsoft.com/en-us/windows/wsl/wsl-config](https://learn.microsoft.com/en-us/windows/wsl/wsl-config).
+Create or edit the `/etc/wsl.conf` file and add the following contents.
+Ref [https://learn.microsoft.com/en-us/windows/wsl/wsl-config](https://learn.microsoft.com/en-us/windows/wsl/wsl-config).
 
 ```
 [user]
-default = creativenull
+default = [user name]
 
 [interop]
 enabled = false
@@ -100,9 +101,14 @@ appendWindowsPath = false
 systemd = true
 ```
 
+Where `[user name]` is the user you want to create.
+
 Now, logout and terminate the container and try to enter it (this is in powershell/windows terminal).
 
-```
+```sh
+exit
+
+# Below is in powershell once you exit
 wsl --terminate Ubuntu
 wsl -d Ubuntu
 ```
@@ -152,8 +158,10 @@ rm lsd_1.0.0_amd64.deb
 Generate ssh key for Github, etc. Copy the `.pub` contents when create a new ssh key in Github settings.
 
 ```sh
-ssh-keygen -t ed25519 -C "creativenull@outlook.com"
+ssh-keygen -t ed25519 -C [email]
 ```
+
+Where `[email]` is your Github email.
 
 ### MYSQL
 
@@ -163,7 +171,8 @@ sudo systemctl enable mysql
 sudo systemctl start mysql
 ```
 
-Set a user and password give it all grants for local development. Ref [https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-22-04](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-22-04)
+Set a user and password give it all grants for local development (Not production).
+Ref [https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-22-04](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-22-04)
 
 ```sh
 sudo mysql
@@ -193,14 +202,14 @@ git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.13.1
 
 # node
 asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
-asdf install nodejs 20.10.0
-asdf global nodejs 20.10.0
+asdf install nodejs 20.14.0
+asdf global nodejs 20.14.0
 
 # php
 asdf plugin add php https://github.com/asdf-community/asdf-php.git
 sudo apt install -y autoconf bison build-essential curl gettext git libgd-dev libcurl4-openssl-dev libedit-dev libicu-dev libjpeg-dev libmysqlclient-dev libonig-dev libpng-dev libpq-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev libzip-dev openssl pkg-config re2c zlib1g-dev
-asdf install php 8.2.14
-asdf global php 8.2.14
+asdf install php 8.2.20
+asdf global php 8.2.20
 ```
 
 ### Deno
@@ -216,7 +225,7 @@ Add the export instructions to `~/.zprofile`.
 Install the essential editor tools before installing neovim.
 
 ```sh
-sudo apt install -y fzf ripgrep
+sudo apt install -y ripgrep
 ```
 
 Install packages for neovim build. Ref [https://github.com/neovim/neovim/blob/master/BUILD.md](https://github.com/neovim/neovim/blob/master/BUILD.md)
@@ -230,7 +239,7 @@ Clone neovim into `~/.builds`. Specify the nvim version to checkout.
 ```sh
 git clone https://github.com/neovim/neovim.git ~/.builds/neovim
 cd ~/.builds/neovim
-git checkout v0.9.5
+git checkout v0.10.0
 ```
 
 Build the binary.
